@@ -1,16 +1,33 @@
+<%#
+  🔍 SHOW VIEW: Display one specific pet (READ action)
+  Connected to: PetsController#show
+  Receives: @pet (one Pet instance)
+%>
+
 <div class="container mt-5">
+  <%# Display pet name and species from the @pet object %>
   <h1><%= @pet.name %> <small>(<%= @pet.species %>)</small></h1>
 
   <ul>
+    <%# Access pet attributes using dot notation %>
     <li>Address: <%= @pet.address %></li>
     <li>Found on: <%= @pet.found_on %></li>
   </ul>
 
+  <%# Link to edit page - edit_pet_path(@pet) generates /pets/:id/edit %>
   <%= link_to "Edit #{@pet.name}", edit_pet_path(@pet) %>
   <br>
 
+  <%#
+    🗑️ DELETE LINK: This is tricky!
+    - The link looks normal but data: { turbo_method: :delete } makes it a DELETE request
+    - Turbo (Rails JS) intercepts the click and submits a DELETE request
+    - turbo_confirm adds a "Are you sure?" popup
+    - Without Turbo, this would just be a regular GET request!
+  %>
   <%= link_to "Delete #{@pet.name}", pet_path(@pet), data: { turbo_method: :delete, turbo_confirm: "Are your sure?" } %>
   <br>
 
+  <%# Link back to index - pets_path generates /pets %>
   <%= link_to "Back to all pets", pets_path %>
 </div>

@@ -1,5 +1,17 @@
+<%#
+  ➕ NEW VIEW: Form to create a pet (CREATE action - step 1)
+  Connected to: PetsController#new
+  Receives: @pet (empty Pet.new object)
+  Form submits to: PetsController#create
+%>
+
 <div class="container mt-5">
   <h1>Add a new pet</h1>
 
+  <%#
+    📦 RENDER PARTIAL: DRY principle!
+    This loads the _form.html.erb partial
+    The form uses @pet from the controller
+  %>
   <%= render "form" %>
 </div>

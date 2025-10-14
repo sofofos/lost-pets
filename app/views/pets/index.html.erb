@@ -1,11 +1,22 @@
+<%#
+  📋 INDEX VIEW: List all pets (READ action)
+  Connected to: PetsController#index
+  Receives: @pets (array of all Pet records)
+%>
+
 <div class="container mt-5">
   <h1>All pets</h1>
 
   <ul>
+    <%# Loop through each pet in the @pets array %>
     <% @pets.each do |pet| %>
+      <%# link_to creates an <a> tag %>
+      <%# pet_path(pet) generates the route: /pets/:id %>
       <li><%= link_to pet.name, pet_path(pet) %></li>
     <% end %>
   </ul>
 
+  <%# Link to create a new pet %>
+  <%# new_pet_path generates the route: /pets/new %>
   <%= link_to "Add a pet", new_pet_path %>
 </div>

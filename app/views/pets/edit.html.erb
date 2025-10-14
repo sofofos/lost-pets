@@ -1,5 +1,18 @@
+<%#
+  ✏️ EDIT VIEW: Form to update a pet (UPDATE action - step 1)
+  Connected to: PetsController#edit
+  Receives: @pet (existing Pet record from database)
+  Form submits to: PetsController#update
+%>
+
 <div class="container mt-5">
   <h1>Edit <%= @pet.name %></h1>
 
+  <%#
+    📦 RENDER PARTIAL: DRY principle!
+    This loads the SAME _form.html.erb as new.html.erb
+    But @pet is pre-filled with existing data this time!
+    The form is smart enough to know it should UPDATE instead of CREATE
+  %>
   <%= render "form" %>
 </div>

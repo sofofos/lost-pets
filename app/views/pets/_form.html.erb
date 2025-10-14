@@ -1,7 +1,72 @@
+<!--
+  🏗️ FORM PARTIAL: DRY principle in action!
+  This form is used by BOTH new.html.erb AND edit.html.erb
+  No need to write the same form twice!
+-->
+
+<!--
+  📝 ORIGINAL FORM_WITH VERSION (commented out)
+  This is what we built first during the livecode.
+  Notice how much Bootstrap styling we had to manually add!
+-->
+<!-- <%#= form_with @pet do |f| %>
+  <div class="form-group">
+    <%#= f.label :name %>
+    <%#= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%#= f.label :address %>
+    <%#= f.text_field :address, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%#= f.label :species %>
+    <%#= f.select :species, collection: Pet::SPECIES, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%#= f.label :found_on %>
+    <%#= f.date_field :found_on, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%#= f.submit class: "btn btn-primary" %>
+  </div>
+<%# end %> -->
+
+<!--
+  ✨ SIMPLE FORM VERSION (current)
+  Much cleaner! Simple Form gem handles all the Bootstrap styling
+  and label generation for us automatically.
+-->
+
+<%#
+  🎯 THE MAGIC OF FORM_WITH (and simple_form_for):
+
+  Rails inspects the @pet object:
+  - If @pet.new_record? (no id) → method: POST,  action: /pets
+  - If @pet.persisted? (has id)  → method: PATCH, action: /pets/:id
+
+  That's why the SAME form works for both NEW and EDIT!
+%>
+
 <%= simple_form_for @pet do |f| %>
+  <%# f.input automatically creates label + input + error messages %>
   <%= f.input :name %>
   <%= f.input :address %>
+
+  <%# collection: gives users a dropdown of valid species %>
+  <%# Using Pet::SPECIES constant defined in the model %>
   <%= f.input :species, collection: Pet::SPECIES %>
+
+  <%# Date picker input for when the pet was found %>
   <%= f.input :found_on %>
+
+  <%# Submit button - text changes automatically (Create/Update) %>
   <%= f.submit class: "btn btn-primary mt-4" %>
+
+  <%# 💡 BONUS: Different ways to make a delete link (commented out) %>
+  <%#= link_to "Delete", pet_path(Pet.last), data: { turbo_method: :delete, turbo_confirm: "Are your sure?" } %>
+  <%#= button_to "Delete", pet_path(Pet.last), method: :delete, form: { data: { turbo_confirm: "Are your sure?" } } %>
 <% end %>
